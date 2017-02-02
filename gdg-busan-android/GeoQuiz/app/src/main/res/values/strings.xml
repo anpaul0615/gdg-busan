@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+
+
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+
+    <string name="correct_toast">정답!</string>
+    <string name="incorrect_toast">틀림!</string>
+
+    <string name="next_button">다음</string>
+    <string name="prev_button">이전</string>
+
+    <string name="question_oceans">태평양은~</string>
+    <string name="question_mideast">수에즈 운하는~</string>
+    <string name="question_africa">나일강은~</string>
+    <string name="question_americas">아마존강은~</string>
+    <string name="question_asia">바이칼호수는~</string>
+
+</resources>

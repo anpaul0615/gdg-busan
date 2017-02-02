@@ -1,0 +1,11 @@
+/*
+ * 컴포넌트별 스타일
+ */
+.Logo {
+  background-image: url('../../images/logo.png');
+  background-size: cover;
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
+  width: 50px;
+}

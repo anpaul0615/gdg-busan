@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Django Blog Tag Post List {% endblock %}
+{% block content %}
+
+<br/><br/>
+<div class="container">
+    <h3>태그된 포스트 목록페이지 입니다.</h3>
+    <hr>
+
+    <div id="content">
+        <h4>Posts for tag - {{ tag.name }}</h4>
+        <br>
+
+        {% for post in object_list %}
+            <h5><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h5>
+            {{ post.modify_date|date:"N d, Y" }}
+            <p>{{ post.description }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

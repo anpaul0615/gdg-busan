@@ -1,18 +1,23 @@
-<!DOCYTPE html>
-<html>
-<head>
-  <title>Django Bookmark List</title>
-</head>
-<body>
-  <div id="content">
-    <h1>Boooooooooook</h1>
-    <ul>
-      {% for bookmark in object_list %}
-        <li>
-          <a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %} Django Bookmark List {% endblock %}
+{% block content %}
+
+<br/><br/>
+<div class="container">
+    <h3>북마크 목록페이지 입니다.</h3>
+
+    <hr>
+
+    <div id="content">
+        <ul>
+            {% for bookmark in object_list %}
+            <li>
+            <a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

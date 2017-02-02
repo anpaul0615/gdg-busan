@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app1"></div>
+  <div id="app2"></div>
+  <!--
+    선언한 컴포넌트를 여러개 생성할때는 팩토리함수를 이용한다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var Component = React.createClass({
+    render:function(){
+      return React.DOM.h1(null,'hello component!!');
+    }
+  });
+
+  // define component factory
+  var ComponentFactory = React.createFactory(Component);
+
+  // rendering 1
+  ReactDOM.render(
+    ComponentFactory(),
+    document.querySelector('#app1')
+  );
+  // rendering 2
+  ReactDOM.render(
+    ComponentFactory(),
+    document.querySelector('#app2')
+  );
+  </script>
+</body>
+</html>

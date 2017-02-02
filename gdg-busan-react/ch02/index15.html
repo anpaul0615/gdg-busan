@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    관심사 별로 컴포넌트를 구분해서 부모-자식 관계를 만들 수 있다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define mixin
+  var logMixin = {
+    _log:function(methodName, args){
+      console.log(this.name + '::' + methodName, args);
+    },
+    componentWillUpdate:function(){
+      this._log('componentWillUpdate', arguments);
+    },
+    componentDidUpdate:function(){
+      this._log('componentDidUpdate', arguments);
+    },
+    componentWillMount:function(){
+      this._log('componentWillMount', arguments);
+    },
+    componentDidMount:function(){
+      this._log('componentDidMount', arguments);
+    },
+    componentWillUnmount:function(){
+      this._log('componentWillUnmount', arguments);
+    },
+  };
+  // define counter component (child)
+  var Counter = React.createClass({     // Counter 컴포넌트 선언
+    name:'Counter',
+    mixins:[logMixin],
+    propTypes:{
+      'count': React.PropTypes.number.isRequired,
+    },
+    render:function(){
+      return React.DOM.h3(null, this.props.count);
+    }
+  });
+  // define textarea component (parent)
+  var TextAreaCounter = React.createClass({     // Textarea 컴포넌트 선언
+    name:'TextAreaCounter',
+    mixins:[logMixin],
+    propTypes:{
+      'initValue': React.PropTypes.string,
+    },
+    getDefaultProps:function(){
+      return {
+        'initValue': '',
+      };
+    },
+    getInitialState:function(){
+      return {
+        'text': this.props.initValue,
+      };
+    },
+    _textChange:function(ev){
+      this.setState({
+        'text': ev.target.value,
+      });
+    },
+    componentWillReceiveProps:function(newProps){
+      this._log('componentWillReceiveProps', arguments);
+      this.setState({
+        'text': newProps.initValue,
+      });
+    },
+    render:function(){
+      var counter = null;
+      if(this.state.text.length > 0){     // Counter 컴포넌트 초기화
+        counter = React.DOM.h3(
+          null,
+          React.createElement(Counter,{
+            'count':this.state.text.length,
+          })
+        );
+      }
+
+      return React.DOM.div(     // Textarea 컴포넌트 생성
+        null,
+        React.DOM.textarea({
+          'value': this.state.text,
+          'onChange': this._textChange,
+        }),
+        counter               // Counter 컴포넌트 등록
+      );
+    }
+  });
+  // rendering reference
+  var myTextAreaCounter = ReactDOM.render(
+    React.createElement(TextAreaCounter,{
+      'initValue':'hi~ hi~',
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+  <script>
+  // window.onload = function(){
+  //   // 컴포넌트 외부 접근
+  //   setTimeout(function(){
+  //     var msg = 'hello outside world!!';
+  //     myTextAreaCounter.setState({'text': msg});
+  //     console.log('myTextAreaCounter.props');
+  //     console.log(myTextAreaCounter.props);
+  //     console.log('myTextAreaCounter.state');
+  //     console.log(myTextAreaCounter.state);
+  //   },3000);
+  //   // 새 컴포넌트 덮어쓰기
+  //   setTimeout(function(){
+  //     var msg = 'changeeeeeeeeeeeeeee';
+  //     ReactDOM.render(
+  //       React.createElement(TextAreaCounter,{
+  //         'initValue':msg,
+  //       }),
+  //       document.querySelector('#app')
+  //     );
+  //     console.log('myTextAreaCounter.props');
+  //     console.log(myTextAreaCounter.props);
+  //     console.log('myTextAreaCounter.state');
+  //     console.log(myTextAreaCounter.state);
+  //   },5000);
+  // }
+  </script>
+</body>
+</html>

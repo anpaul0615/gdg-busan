@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="parent">
+    <button id="ok">OK</button>
+    <button id="cancel">Cancel</button>
+  </div>
+  <!--
+    일반적인 DOM 이벤트 처리방식 소개
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  document.querySelector('#parent').addEventListener('click',function(event){
+    var button = event.target;
+    switch(button.id){
+      case 'ok':
+        console.log('OK');
+        break;
+      case 'cancel':
+        console.log('Cancel');
+        break;
+      default:
+        new Error('Unexpected Button ID');
+    };
+  });
+  </script>
+</body>
+</html>

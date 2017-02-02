@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    컴포넌트 갱신으로 프로퍼티가 변경되면,
+    생명주기함수 componentWillReceiveProps() 가 호출된다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var TextAreaCounter = React.createClass({
+    propTypes:{
+      'initValue': React.PropTypes.string,
+    },
+    getDefaultProps:function(){
+      return {
+        'initValue': '',
+      };
+    },
+    getInitialState:function(){
+      console.log('getInitialState() is called..!');
+      return {
+        'text': this.props.initValue,
+      };
+    },
+    _textChange:function(ev){
+      this.setState({
+        'text': ev.target.value,
+      });
+    },
+    componentWillReceiveProps:function(newProps){
+      console.log('componentWillReceiveProps() called..!');
+      this.setState({
+        'text': newProps.initValue,     // 프로퍼티가 변경되면 상태값을 갱신한다
+      });
+    },
+    render:function(){
+      return React.DOM.div(
+        null,
+        React.DOM.textarea({
+          'value': this.state.text,
+          'onChange': this._textChange,
+        }),
+        React.DOM.h3(
+          null,
+          this.state.text.length
+        )
+      );
+    }
+  });
+
+  // rendering reference
+  var myTextAreaCounter = ReactDOM.render(
+    React.createElement(TextAreaCounter,{
+      'initValue':'hi~ hi~',
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+  <script>
+  window.onload = function(){
+    // 컴포넌트 외부 접근
+    setTimeout(function(){
+      console.log('outside change 1');
+
+      var msg = 'hello outside world!!';
+      myTextAreaCounter.setState({'text': msg});
+      console.log('myTextAreaCounter.props');
+      console.log(myTextAreaCounter.props);
+      console.log('myTextAreaCounter.state');
+      console.log(myTextAreaCounter.state);
+    },3000);
+    // 새 컴포넌트 덮어쓰기
+    setTimeout(function(){
+      console.log('outside change 2');
+
+      var msg = 'changeeeeeeeeeeeeeee';
+      ReactDOM.render(
+        React.createElement(TextAreaCounter,{
+          'initValue':msg,
+        }),
+        document.querySelector('#app')
+      );
+      console.log('myTextAreaCounter.props');
+      console.log(myTextAreaCounter.props);
+      console.log('myTextAreaCounter.state');
+      console.log(myTextAreaCounter.state);
+    },5000);
+  }
+  </script>
+</body>
+</html>

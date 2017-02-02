@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    컴포넌트 상태를 유지관리할 수 있다. (상태저장 + 이벤트등록 + html갱신)
+      0. 프로퍼티 제약사항 설정
+      0. 프로퍼티 기본값 설정
+      1. 최초값을 프로퍼티로 전달
+      2. 프로퍼티값을 읽어서 상태값으로 등록
+      3. 상태값을 html로 표현
+      4. 이벤트발생시 상태값 갱신
+
+    ※ 프로퍼티는 외부에서 전달되는 데이터 (like. 함수 파라미터)
+    ※ 상태는 내부에서 사용되는 데이터 (like. private 멤버변수)
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var TextAreaCounter = React.createClass({
+    propTypes:{
+      'text': React.PropTypes.string,   // 0. 프로퍼티 제약사항 설정
+    },
+    getDefaultProps:function(){
+      return {
+        'text': '',   // 0. 프로퍼티 기본값 설정
+      };
+    },
+    getInitialState:function(){
+      return {
+        'text': this.props.text,    // 2. 프로퍼티값으로 상태값 초기화
+      };
+    },
+    _textChange:function(ev){
+      this.setState({
+        'text': ev.target.value,    // 4. 이벤트발생시 상태값 갱신
+      });
+    },
+    render:function(){
+      return React.DOM.div(
+        null,
+        React.DOM.textarea({
+          'value': this.state.text,       // 3. 상태값을 html로 표현
+          'onChange': this._textChange,
+        }),
+        React.DOM.h3(
+          null,
+          this.state.text.length          // 3. 상태값을 html로 표현
+        )
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(TextAreaCounter,{
+      'text':'Hello~ Hello~',     // 1. 최초값을 프로퍼티로 전달
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

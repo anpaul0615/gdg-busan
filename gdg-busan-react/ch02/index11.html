@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    외부 환경과 통신하기 위해서, ReactDOM.render() 를 참조로 등록할 수 있다.
+
+    참조를 통한 외부 접근은 예상하지 못한 버그를 유발할 수 있다.
+
+    참조호출로 컴포넌트를 재생성해도, 어플리케이션의 상태값은 유지된다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var TextAreaCounter = React.createClass({
+    propTypes:{
+      'initValue': React.PropTypes.string,
+    },
+    getDefaultProps:function(){
+      return {
+        'initValue': '',
+      };
+    },
+    getInitialState:function(){
+      console.log('getInitialState() is called..!');
+      return {
+        'text': this.props.initValue,    // 컴포넌트 최초 생성시에만 호출
+      };
+    },
+    _textChange:function(ev){
+      this.setState({
+        'text': ev.target.value,
+      });
+    },
+    render:function(){
+      return React.DOM.div(
+        null,
+        React.DOM.textarea({
+          'value': this.state.text,
+          'onChange': this._textChange,
+        }),
+        React.DOM.h3(
+          null,
+          this.state.text.length
+        )
+      );
+    }
+  });
+
+  // rendering reference
+  var myTextAreaCounter = ReactDOM.render(    // 생성된 컴포넌트 참조 등록
+    React.createElement(TextAreaCounter,{
+      'initValue':'hi~ hi~',
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+  <script>
+  window.onload = function(){
+
+    // 컴포넌트 외부 접근
+    setTimeout(function(){
+      console.log('outside change 1');
+
+      var msg = 'hello outside world!!';
+      myTextAreaCounter.setState({'text': msg});    // 컴포넌트 외부접근
+      console.log(myTextAreaCounter.props);
+      console.log('myTextAreaCounter.state');
+      console.log(myTextAreaCounter.state);
+    },3000);
+
+    // 새 컴포넌트 덮어쓰기
+    setTimeout(function(){
+      console.log('outside change 2');
+
+      var msg = 'changeeeeeeeeeeeeeee';
+      ReactDOM.render(
+        React.createElement(TextAreaCounter,{
+          'initValue':msg,
+        }),
+        document.querySelector('#app')
+      );
+      console.log('myTextAreaCounter.props');
+      console.log(myTextAreaCounter.props);
+      console.log('myTextAreaCounter.state');
+      console.log(myTextAreaCounter.state);
+    },5000);
+
+  }
+  </script>
+</body>
+</html>

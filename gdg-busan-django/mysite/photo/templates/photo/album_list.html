@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} Django Blog Post All {% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "photo/photo.css" %}{% endblock %}
+
+{% block content %}
+
+<br/><br/>
+<div class="container">
+    <h3>사진 앨범 목록페이지 입니다.</h3>
+    <hr>
+
+    <div id="content">
+        {% for item in object_list %}
+        <div class="clear_float">
+            <h5 style="display:inline"><a href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a></h5>
+            &emsp;<b><i>{{ item.description }}</i></b>
+        </div>
+
+        <hr/>
+
+        <div class="album-list">
+            {% for photo in item.photo_set.all|slice:":5" %}
+            <div class="album-list-photo">
+                <a href="{{ photo.get_absolute_url }}">
+                <img class="thumbnail" src="{{ photo.image.thumb_url }}" />
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app1"></div>
+  <div id="app2"></div>
+  <!--
+    React.DOM.h1(param1, param2, param3..)
+    → param2 이후 매개변수는 자식컴포넌트로 취급한다
+    → 자식컴포넌트를 같은 위상으로 나열할수도
+      자식의 자식으로 중첩시킬수도있다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // rendering 1
+  ReactDOM.render(
+    React.DOM.h1(
+      {'name':'react-h1'},
+      React.DOM.span(null, "first"),
+      React.DOM.br(null, null),
+      React.DOM.span(null, "second"),
+      React.DOM.br(null, null),
+      "third"),
+    document.querySelector('#app1')
+  );
+
+  // rendering 2
+  ReactDOM.render(
+    React.DOM.h1(
+      {'name':'react-h1'},
+
+      React.DOM.span(
+        {'name':'react-span-1'},
+
+        React.DOM.span(
+          {'name':'react-span-2'},
+
+          React.DOM.span(
+            {'name':'react-span-3'},
+
+            "first",
+            React.DOM.br(null, null)
+          ),
+          "second",
+          React.DOM.br(null, null)
+        ),
+        "third",
+        React.DOM.br(null, null)
+      )
+    ),
+    document.querySelector('#app2')
+  );
+  </script>
+</body>
+</html>

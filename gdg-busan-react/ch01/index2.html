@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <div id="label"></div>
+  <input type="text" id="textbox" />
+  <!--
+    React.DOM.h1(param1, param2)
+    param1 : DOM 프로퍼티 (ex. id="mydom" )
+    param2 : 자식 DOM (ex.텍스트노드 )
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // rendering 1
+  ReactDOM.render(
+    React.DOM.h1({
+      'id':'react-h1'
+    }, "hello world!!"),
+    document.querySelector('#app')
+  );
+  // rendering 2
+  ReactDOM.render(
+    React.DOM.label({
+      'className':'reatc-label',
+      'htmlFor':'textbox'
+    }, "hello world!!"),
+    document.querySelector('#label')
+  );
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    React.DOM : 미리 만들어진 HTML 요소의 컬렉션
+    ReactDOM : 브라우저 랜더러
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // rendering
+  ReactDOM.render(
+    React.DOM.h1(null, "hello world!!"),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

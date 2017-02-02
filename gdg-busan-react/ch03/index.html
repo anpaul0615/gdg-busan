@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  table {
+    border: solid 2px;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    Excel 컴포넌트 만들기 (1) : 테이블 헤더
+    → headers 의 column 만큼 th 생성
+    → React 에서 식별할수있도록 Excel 객체에 'displayName' 프로퍼티 할당
+    → React 에서 식별할수있도록 th 객체에 'key' 프로퍼티 할당
+    → 종료
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component data
+  var headers = [
+    "Book","Author","Language","Published","Sales"
+  ];
+  var data = [
+    ["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954-1955", "150 million"],
+    ["Le Petit Prince (The Little Prince)", "Antoine de Saint-Exupéry", "French", "1943", "140 million"],
+    ["Harry Potter and the Philosopher's Stone", "J. K. Rowling", "English", "1997", "107 million"],
+    ["And Then There Were None", "Agatha Christie", "English", "1939", "100 million"],
+    ["Dream of the Red Chamber", "Cao Xueqin", "Chinese", "1754-1791", "100 million"],
+    ["The Hobbit", "J. R. R. Tolkien", "English", "1937", "100 million"],
+    ["She: A History of Adventure", "H. Rider Haggard", "English", "1887", "100 million"],
+  ];
+
+  // define component
+  var Excel = React.createClass({
+    'displayName':'Excel',    // 식별자 할당
+    render:function(){
+      return (
+        React.DOM.table(
+          null,
+          React.DOM.thead(
+            null,
+            React.DOM.tr(
+              null,
+              this.props.headers.map(function(title, idx){
+                return React.DOM.th({'key':idx}, title);   // 식별자 할당
+              })
+            )
+          )//thead
+        )//table
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(Excel,{
+      'headers':headers,
+      'initialData':data,
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

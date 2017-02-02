@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  table {
+    border: solid 2px;
+  }
+  table th {
+    border-bottom: solid 1px black;
+  }
+  table td {
+    border-bottom: dotted 1px gray;
+  }
+  </style>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    Excel 컴포넌트 만들기 (3) : 단순 정렬
+    → 테이블헤더 클릭시, _sort() 호출
+    → 정렬기준 열번호에 해당되는 데이터 추출
+    → 추출한 데이터 전후 비교 정렬 (큰 값을 높은인덱스로)
+    → 정렬된 데이터를 component.state.data 에 반영
+    → 변경된 데이터(열번호)만 렌더링
+    → 종료
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component data
+  var headers = [
+    "Book","Author","Language","Published","Sales"
+  ];
+  var data = [
+    ["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954-1955", "150 million"],
+    ["Le Petit Prince (The Little Prince)", "Antoine de Saint-Exupéry", "French", "1943", "140 million"],
+    ["Harry Potter and the Philosopher's Stone", "J. K. Rowling", "English", "1997", "107 million"],
+    ["And Then There Were None", "Agatha Christie", "English", "1939", "100 million"],
+    ["Dream of the Red Chamber", "Cao Xueqin", "Chinese", "1754-1791", "100 million"],
+    ["The Hobbit", "J. R. R. Tolkien", "English", "1937", "100 million"],
+    ["She: A History of Adventure", "H. Rider Haggard", "English", "1887", "100 million"],
+  ];
+
+  // define component
+  var Excel = React.createClass({
+    'displayName':'Excel',
+    propTypes:{
+      'headers': React.PropTypes.arrayOf(
+        React.PropTypes.string
+      ),
+      'initialData': React.PropTypes.arrayOf(
+        React.PropTypes.arrayOf(
+          React.PropTypes.string
+        )
+      )
+    },
+    getInitialState:function(){
+      return { 'data': this.props.initialData };
+    },
+    _sort:function(e){
+      var column = e.target.cellIndex;  //정렬기준 열번호
+      var data = this.state.data.slice();  //임시데이터
+      data.sort(function(a,b){
+        return a[column] > b[column] ? 1 : -1;   //전후비교해서 정렬 (오름차순)
+      });
+      this.setState({
+        'data': data  //임시데이터 반영
+      });
+    },
+    render:function(){
+      return (
+        React.DOM.table(
+          null,
+          React.DOM.thead(
+            {'onClick': this._sort},
+            React.DOM.tr(
+              null,
+              this.props.headers.map(function(title, idx){
+                return React.DOM.th({'key':idx}, title);
+              })
+            )
+          ),//thead
+          React.DOM.tbody(
+            null,
+            this.state.data.map(function(row, idx){
+              return React.DOM.tr(
+                {'key': idx},
+                row.map(function(cell, idx){
+                  return React.DOM.td({'key': idx}, cell);
+                })
+              );
+            })
+          )//tbody
+        )//table
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(Excel,{
+      'headers':headers,
+      'initialData':data,
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

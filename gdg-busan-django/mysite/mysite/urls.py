@@ -18,9 +18,12 @@ from django.conf.urls import include
 
 from django.contrib import admin
 
+from .views import HomeView
 #from bookmark.views import BookmarkLV, BookmarkDV
 
 urlpatterns = [
+    url(r'^$', HomeView.as_view(), name='home'),
+
     url(r'^admin/', admin.site.urls),
     url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')),
     url(r'^blog/', include('blog.urls', namespace='blog')),

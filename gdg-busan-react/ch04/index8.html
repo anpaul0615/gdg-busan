@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    8. JSX 에서 HTML 사용 (5) : 다중 컴포넌트 반환
+    React 는 render() 함수에서 항상 단일 컴포넌트를 반환한다
+    다중 컴포넌트는 임의의 부모 컴포넌트로 감싸서 반환한다
+    배열을 이용해서 컴포넌트 구성을 조합할 수 있다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define component array
+  var greeting = [
+    <span>hello 3</span>,
+    <br/>,
+    <span>hello 4</span>
+  ];
+
+  // define parent component
+  var Parent = React.createClass({
+    render:function(){
+      console.log(this.props.children.length);
+      return (
+        <div>
+          <span>i am children</span>
+          <br/>
+          {this.props.children}
+        </div>
+      )
+    }
+  })
+
+  // rendering
+  ReactDOM.render(
+
+    /* 다중 컴포넌트 반환을 위한 부모 컴포넌트(노드) */
+    <div>
+
+      {/* 다중 컴포넌트 */}
+      <span>hello 1</span><br/>
+      <span>hello 2</span>
+      <hr/>
+
+      {/* 컴포넌트 배열 */}
+      {greeting}
+      <hr/>
+
+      {/* 부모 컴포넌트 상속 */}
+      <Parent>
+        <span>hello 5</span><br/>
+        <span>hello 6</span><br/>
+        <span>hello 7</span><br/>
+        <span>hello 8</span>
+      </Parent>
+      <hr/>
+
+    </div>,
+    document.querySelector('#app')
+  );
+  // // rendering
+  // ReactDOM.render(            //error
+  //   <span>hello 1</span>
+  //   <br/>
+  //   <span>hello 2</span>,
+  //   document.querySelector('#app')
+  // );
+  </script>
+</body>
+</html>

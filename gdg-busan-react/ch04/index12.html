@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    12. JSX 에서 HTML 사용 (9) : select 에서의 value 와 defaultValue
+    select 컴포넌트에서 value 속성을 지정하면 선택값을 변경할 수 없게된다
+    defaultValue 속성으로 초기선택값을 지정할 수 있다
+    꼭 value 속성을 사용하고싶으면, 컴포넌트 상태값을 이용할 수 있다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define component
+  var MySelect = React.createClass({
+    getInitialState:function(){
+      return {'value': 'jeju'};  //초기값
+    },
+    _onChange:function(ev){
+      this.setState({'value': ev.target.value}); //변경이벤트 발생시 상태값 변경
+    },
+    render:function(){
+      return (
+
+        /* 상태값에 value 를 등록해서 value 속성 사용 */
+        <select value={this.state.value} onChange={this._onChange}>
+          <option value="seoul">Go to Seoul</option>
+          <option value="busan">Go to Busan</option>
+          <option value="jeju">Go to Jeju</option>
+        </select>
+
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    <div>
+      {/* 기존 HTML 방식 (비권장) */}
+      <select>
+        <option value="seoul">Go to Seoul</option>
+        <option value="busan" selected>Go to Busan</option>
+      </select>
+      <hr/>
+
+      {/* defaultValue 사용 */}
+      <select defaultValue="busan">
+        <option value="seoul">Go to Seoul</option>
+        <option value="busan">Go to Busan</option>
+      </select>
+      <hr/>
+
+      {/* value 사용 */}
+      <select value="busan">
+        <option value="seoul">Go to Seoul</option>
+        <option value="busan">Go to Busan</option> {/* 변경불가 */}
+      </select>
+      <hr/>
+
+      {/* 다중선택 */}
+      <select defaultValue={ ["seoul", "busan"] } multiple={true}>
+        <option value="seoul">Go to Seoul</option>
+        <option value="busan">Go to Busan</option>
+        <option value="jeju">Go to Jeju</option>
+      </select>
+      <hr/>
+
+      {/* 컴포넌트 객체 */}
+      <MySelect/>
+      <hr/>
+    </div>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

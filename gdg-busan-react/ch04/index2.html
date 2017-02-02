@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    2. JSX 에서 자바스크립트 사용 (1) : 제어
+    JSX 는 템플릿언어가 아니라, ECMAScript로 치환되는 확장언어다
+    따라서 조건문이나 반목문 등의 제어구조를 가지고있지 않다.
+
+    JSX 는 중괄호를 이용해서 자바스크립트를 사용할 수 있다
+
+    중괄호 내부의 자바스크립트는 문(statement)이 아니라 식(expression)이어야 한다
+    다시말해 인터프리팅의 결과가 하나의 값이 되어야 한다
+
+    변수는 중괄호를 이용해서 표현한다
+    조건은 if/else가 아닌 삼항연산자로 표현한다
+    반복은 for/while이 아닌 배열메소드로 표현한다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // rendering 1
+  ReactDOM.render(
+    <h1 id="my-heading">
+      {
+        //결과값이 컴포넌트 배열
+        [1,2,3].map(function(num){
+          return <span>Hello{num} </span>;
+        })
+      }
+      {
+        //중괄호내부의 컴포넌트 배열은 연속된 DOM으로 인식한다
+        [<br/>,<br/>,<hr/>]
+      }
+      <br/><br/><hr/>
+      <span>{'good'}</span>               {/*리터럴사용*/}
+      <br/>
+      <span>{window.Date.now()}</span>    {/*변수사용*/}
+      <br/>
+      <span>
+        {
+          //조건문(statement)이 아닌 삼항식(expression)
+          (1 === 1)? 'true' : 'false'
+        }
+      </span>
+    </h1>,
+    document.querySelector('#app')
+  );
+  // // rendering 2
+  // ReactDOM.render(
+  //   <h1 id="my-heading">
+  //     {
+  //       //중괄호 내부에서는 문(statement)은 결과값이 없기 때문에 사용할수없다
+  //       for(var i=0; i<3; i++){
+  //         <span>Hello{i} </span>;
+  //       }
+  //     }
+  //   </h1>,
+  //   document.querySelector('#app')
+  // );
+  </script>
+</body>
+</html>

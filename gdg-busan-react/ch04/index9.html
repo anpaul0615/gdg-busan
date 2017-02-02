@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    9. JSX 에서 HTML 사용 (6) : HTML 과의 차이점
+    class 속성과 for 속성은 className, htmlFor으로 사용한다
+    style 속성은 세미콜론으로 구분된 문자열이 아닌, 객체를 사용한다
+    태그는 항상 닫혀있어야한다
+    속성은 항상 camelCase 로 표기해야한다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // className htmlFor
+  var em = <em calssName="important">1</em>;
+  var label = <label htmlFor="thatInput">2</label>;
+  //var em = <em calss="important" />;      //error
+  //var label = <label for="thatInput" />;  //error
+
+  // style
+  var styles = {
+    fontSize: '2em',
+    lineHeight: '1.6'
+  };
+  //var sytles = 'font-size:2em; line-height:1.6';  //error
+  var em2 = <em style={styles}>3</em>;
+
+  // closed-tag
+  var em3 = <em><b>4</b></em>;
+  // var em3 = <em><b>4</em>;   //error
+
+  // camelCase
+  function foo(){ alert('foo!') }
+  var button = <button onClick={foo}>5</button>;
+  // var button = <a onclick={foo}>5</button>;  //error
+
+  // rendering
+  ReactDOM.render(
+    <div>
+      {em}
+      <hr/>
+
+      {label}
+      <hr/>
+
+      {em2}
+      <hr/>
+
+      {em3}
+      <hr/>
+
+      {button}
+      <hr/>
+
+    </div>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

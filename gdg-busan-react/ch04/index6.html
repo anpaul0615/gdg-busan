@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    6. JSX 에서 HTML 사용 (3) : 스프레드 속성
+    스프레드 연산자를 통해서 다수의 속성을 한번에 할당할 수 있다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define spread attribute
+  var attr = {
+    'href': 'http://example.org',
+    'target': '_blank'
+  };
+
+  // rendering
+  ReactDOM.render(
+    <h1>
+      {/* 개별 할당 */}
+      <a href={attr.href} target={attr.target}>nomal</a>
+      <hr/>
+
+      {/* 일괄 할당 (스프레드 연산자) */}
+      <a {...attr}>spread</a>
+      <hr/>
+    </h1>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

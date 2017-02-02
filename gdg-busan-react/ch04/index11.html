@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    11. JSX 에서 HTML 사용 (8) : textarea 에서의 value 와 defaultValue
+    textarea 컴포넌트의 defaultValue 속성은 리터럴문자열을 그대로 표현한다
+    textarea 컴포넌트의 defaultValue 속성내부의 JSX 리터럴문자열은 이스케이프 문자를 해석해서 표현한다
+    textarea 컴포넌트의 value 속성은 리터럴 문자열을 그대로 표현한다
+    textarea 컴포넌트의 value 속성내부의 JSX 리터럴문자열은 이스케이프 문자를 해석해서 표현한다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define event function
+  function log(e){
+    console.log("value : ", e.target.value);
+    console.log("defaultValue : ", e.target.defaultValue);
+  }
+
+  // rendering
+  ReactDOM.render(
+    <div>
+      {/* 개행문자 사용 (defaultValue) */}
+      <textarea defaultValue="how are \n you 1" onChange={log} />
+      <textarea defaultValue={"how are \n you 1"} onChange={log} />
+      <hr/>
+
+      {/* 개행문자 사용 (value) */}
+      <textarea onChange={log}>
+        how are \n you 2
+      </textarea>
+      <textarea onChange={log}>
+        {"how are \n you 2"}
+      </textarea>
+      <hr/>
+
+      {/* 다중행 이스케이프 */}
+      <textarea onChange={log}>
+        how are
+        you 3
+      </textarea>
+      <textarea onChange={log}>
+        {"how are \n \
+        you 3"}
+      </textarea>
+      <hr/>
+
+    </div>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

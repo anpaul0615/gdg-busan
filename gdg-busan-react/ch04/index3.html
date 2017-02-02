@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    3. JSX 에서 자바스크립트 사용 (2) : 공백 처리
+    리터럴을 식으로 사용할 수 있다
+    연속공백은 하나의 공백을 취급한다
+    줄바꿈은 모든 공백을 생략한다
+    리터럴 문자열로 표현한 연속공백은 하나의 공백으로 취급한다
+  -->
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.min.js"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // rendering
+  ReactDOM.render(
+    <h1>
+      {/* 리터럴을 식으로 사용 */}
+      {1} plus {2} is {3}
+      <hr/>
+
+      {/* 연속공백은 무시 */}
+      {  1  }   plus   {  2  }   is   {  3  }
+      <hr/>
+
+      {/* 줄바꿈은 연속공백으로 취급 */}
+      {1}
+      plus
+      {2}
+      is{'     '}
+      {3}
+      <hr/>
+
+      {/* 리터럴 문자열 사용 */}
+      {1}{' '}plus{' '}{2}{' '}is{' '}{3}
+      <hr/>
+
+      {/* 리터럴 문자열 사용 */}
+      {1}{' plus      abc    '}{2}{'    is'}{3}
+      <hr/>
+
+    </h1>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

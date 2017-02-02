@@ -1,0 +1,43 @@
+package com.example.paul.criminalintent;
+
+import android.content.Context;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * Created by PAUL on 2016-09-02.
+ */
+public class CrimeLab {
+    private static CrimeLab sCrimeLab;
+    private List<Crime> mCrimes;
+
+    public static CrimeLab get(Context context){
+        if (sCrimeLab == null) {
+            sCrimeLab = new CrimeLab(context);
+        }
+        return sCrimeLab;
+    }
+    private CrimeLab(Context context){
+        this.mCrimes = new ArrayList<>();
+        for (int i=0; i<100; i++){
+            Crime crime = new Crime();
+            crime.setTitle("범죄 #" + i);
+            crime.setSolved(i%2 == 0);
+            mCrimes.add(crime);
+        }
+    }
+
+    public List<Crime> getCrimes(){
+        return this.mCrimes;
+    }
+    public Crime getCrime(UUID id){
+        for (Crime crime : mCrimes){
+            if(crime.getId().equals(id)){
+                return crime;
+            }
+        }
+        return null;
+    }
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Django Blog Archive Month {% endblock %}
+{% block content %}
+
+<br/><br/>
+<div class="container">
+    <h3>블로그 월별 아카이브 입니다.</h3>
+    <hr>
+
+    <div id="content">
+        <h1>Post Archives or {{ day|date:"Y-m-d"}}</h1>
+        <div>
+            <ul>
+                {% for post in object_list %}
+                <li>{{ post.modify_date|date:"Y-m-d"}}&nbsp;&nbsp;&nbsp;
+                    <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

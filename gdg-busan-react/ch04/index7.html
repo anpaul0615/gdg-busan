@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    7. JSX 에서 HTML 사용 (4) : 부모 대 자식 스프레드 속성
+    부모 컴포넌트로부터 프로퍼티를 전달받을 수 있다
+    불필요한 프로퍼티는 자동으로 무시된다
+    불필요한 프로퍼티를 명시적으로 삭제할 수 있다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+
+  /* 자식 컴포넌트 선언 */
+  var FancyLink = React.createClass({
+    render: function(){
+      switch(this.props.size){
+        //todo
+      }
+
+      /* 불필요한 프로퍼티 삭제 */
+      var attribs = Object.assign({}, this.props);
+      delete attribs.size;
+
+      /* 부모 컴포넌트에게 전달받은 props 로 렌더링 */
+      return <a {...this.props}>{this.props.children}</a>;
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    /* 부모 컴포넌트 선언 */
+    <FancyLink
+      href="http://example.org"
+      sytle={ {color:"red"} }
+      target="_blank"
+      size="medium">  {/* DOM 에 없는 속성은 무시된다 */}
+      hello
+    </FancyLink>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

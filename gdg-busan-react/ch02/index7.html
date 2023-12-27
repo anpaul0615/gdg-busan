@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    컴포넌트 상태를 유지관리할 수 있다. (상태비저장)
+      0. 프로퍼티 제약사항 설정
+      0. 프로퍼티 기본값 설정
+      1. 최초값을 프로퍼티로 전달
+      2. 프로퍼티값을 html로 표현
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var TextAreaCounter = React.createClass({
+    propTypes:{
+      'text': React.PropTypes.string,   // 0. 프로퍼티 제약사항 설정
+    },
+    getDefaultProps:function(){
+      return {
+        'text': '',   // 0. 프로퍼티 기본값 설정
+      };
+    },
+    render:function(){
+      return React.DOM.div(
+        null,
+        React.DOM.textarea({
+          'defaultValue': this.props.text,    // 2. 프로퍼티값을 html로 표현
+        }),
+        React.DOM.h3(
+          null,
+          this.props.text.length              // 2. 프로퍼티값을 html로 표현
+        )
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(TextAreaCounter,{
+      'text':'Hello~ Hello~',                // 1. 최초값을 프로퍼티로 전달
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

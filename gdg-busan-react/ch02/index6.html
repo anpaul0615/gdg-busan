@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    컴포넌트 프로퍼티에 기본값을 등록할 수 있다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var Component = React.createClass({
+    propTypes:{
+      'firstName': React.PropTypes.string.isRequired,
+      'middleName': React.PropTypes.string,
+      'familyName': React.PropTypes.string.isRequired,
+      'address': React.PropTypes.string,
+    },
+    getDefaultProps:function(){
+      return {
+        'middleName': '',
+        'address': 'n/a',
+      };
+    },
+    render:function(){
+      return React.DOM.h1(
+        null,
+        'firstName : ' + this.props.firstName,
+        React.DOM.br(null,null),
+        'middleName : ' + this.props.middleName,
+        React.DOM.br(null,null),
+        'familyName : ' + this.props.familyName,
+        React.DOM.br(null,null),
+        'address : ' + this.props.address
+      );
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(Component,{
+        'firstName': 'Paul',
+        'familyName': 'An',
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

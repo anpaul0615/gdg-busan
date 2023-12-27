@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    ※ 컴포넌트 생명주기함수 (라이프사이클 메소드)
+      ..
+      componentWillReceiveProps : 새로운 프로퍼티를 받았을때
+      componentWillUpdate() : (프로퍼티나 상태변경에 의해) render() 호출 전
+      componentDidUpdate() : render() 실행 및 DOM 적용완료 후
+      componentWillMount() : 컴포넌트가 DOM에 삽입되기 전
+      componentDidMount() : 컴포넌트가 DOM에 삽입된 후
+      componentWillUnmount() : 컴포넌트가 DOM에서 제거되기 전
+      ..
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var TextAreaCounter = React.createClass({
+    propTypes:{
+      'initValue': React.PropTypes.string,
+    },
+    getDefaultProps:function(){
+      return {
+        'initValue': '',
+      };
+    },
+    getInitialState:function(){
+      return {
+        'text': this.props.initValue,
+      };
+    },
+    _textChange:function(ev){
+      this.setState({
+        'text': ev.target.value,
+      });
+    },
+    componentWillReceiveProps:function(newProps){
+      this._log('componentWillReceiveProps', arguments);
+      this.setState({
+        'text': newProps.initValue,
+      });
+    },
+    _log:function(methodName, args){
+      console.log(methodName, args);
+    },
+    componentWillUpdate:function(){
+      this._log('componentWillUpdate', arguments);
+    },
+    componentDidUpdate:function(){
+      this._log('componentDidUpdate', arguments);
+    },
+    componentWillMount:function(){
+      this._log('componentWillMount', arguments);
+    },
+    componentDidMount:function(){
+      this._log('componentDidMount', arguments);
+    },
+    componentWillUnmount:function(){
+      this._log('componentWillUnmount', arguments);
+    },
+    render:function(){
+      return React.DOM.div(
+        null,
+        React.DOM.textarea({
+          'value': this.state.text,
+          'onChange': this._textChange,
+        }),
+        React.DOM.h3(
+          null,
+          this.state.text.length
+        )
+      );
+    }
+  });
+
+  // rendering reference
+  var myTextAreaCounter = ReactDOM.render(
+    React.createElement(TextAreaCounter,{
+      'initValue':'hi~ hi~',
+    }),
+    document.querySelector('#app')
+  );
+  </script>
+  <script>
+  // window.onload = function(){
+  //   // 컴포넌트 외부 접근
+  //   setTimeout(function(){
+  //     var msg = 'hello outside world!!';
+  //     myTextAreaCounter.setState({'text': msg});
+  //     console.log('myTextAreaCounter.props');
+  //     console.log(myTextAreaCounter.props);
+  //     console.log('myTextAreaCounter.state');
+  //     console.log(myTextAreaCounter.state);
+  //   },3000);
+  //   // 새 컴포넌트 덮어쓰기
+  //   setTimeout(function(){
+  //     var msg = 'changeeeeeeeeeeeeeee';
+  //     ReactDOM.render(
+  //       React.createElement(TextAreaCounter,{
+  //         'initValue':msg,
+  //       }),
+  //       document.querySelector('#app')
+  //     );
+  //     console.log('myTextAreaCounter.props');
+  //     console.log(myTextAreaCounter.props);
+  //     console.log('myTextAreaCounter.state');
+  //     console.log(myTextAreaCounter.state);
+  //   },5000);
+  // }
+  </script>
+</body>
+</html>

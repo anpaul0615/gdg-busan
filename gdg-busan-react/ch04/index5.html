@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    5. JSX 에서 HTML 사용 (2) : XSS 방지
+    React 는 XSS 공격을 방지하기 위해 모든 문자열을 이스케이프한다
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define XSS string
+  var firstname = 'John<scr' + 'ipt src="http://evil/co.js"></scr' + 'ipt>';
+
+  // rendering
+  ReactDOM.render(
+    <h1>
+      {/* 악의적인 문자열 공격이 이스케이프된다 */}
+      Hello, {firstname}!
+    </h1>,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

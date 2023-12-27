@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    React.createClass() 로 컴포넌트를 선언해서 사용할 수 있다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // define component
+  var Component = React.createClass({
+    render:function(){
+      return React.DOM.h1(null,'hello component!!');
+    }
+  });
+
+  // rendering
+  ReactDOM.render(
+    React.createElement(Component),
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

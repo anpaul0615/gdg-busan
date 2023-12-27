@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app"></div>
+  <!--
+    10. JSX 에서 HTML 사용 (7) : value 와 defaultValue
+    컴포넌트의 defauleValue 속성은 초기화 값이다
+    컴포넌트의 value 속성은 현재 값이다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+  <script type="text/babel">
+  // define event function
+  function log(event){
+    console.log("value : ", event.target.value);
+    console.log("defaultValue : ", event.target.defaultValue);
+  }
+
+  // rendering
+  ReactDOM.render(
+    <div>
+      <input defaultValue="hello" onChange={log} />,
+    document.querySelector('#app')
+  );
+  </script>
+</body>
+</html>

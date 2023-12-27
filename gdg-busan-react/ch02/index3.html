@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app1"></div>
+  <div id="app2"></div>
+  <!--
+    React.DOM.* 은 React.createElement() 를 감싸는 래퍼에 불과하다.
+  -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.min.js"></script>
+  <script>
+  // rendering 1
+  ReactDOM.render(
+    React.createElement("span", null, "hello 1"),
+    document.querySelector('#app1')
+  );
+
+  // rendering 2
+  ReactDOM.render(
+    React.DOM.span(null,"hello 2"),
+    document.querySelector('#app2')
+  );
+  </script>
+</body>
+</html>
